@@ -214,3 +214,8 @@ function signOut() {
         console.log('User signed out.');
     });
 }
+    // $('#click_advance').click(function() {
+    //     $('#display_advance').toggle('1000');
+    //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
+    // });
+}
