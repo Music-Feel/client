@@ -6,30 +6,13 @@ $(document).ready( () => {
     
     $('#register').submit(registerMember)
     $('#login').submit(loginMember)
-    $('#logout-button').click(logout)
+    $('#logout-button').click(signOut)
 
     $('#form-fetch-data').submit(event => {
         event.preventDefault()
         fetchDataFilm()
     })
-    // $('#add-button').click(function(event){
-    //     console.log('ini')
-    //     $('#todo_form').show()
-    //     $('#empty-todo').hide()
-    // })
 
-    // // ini form untuk membuat todolist baru
-    // $('#todo_form').submit(addTodo)    
-    // // todo today
-    // $('#today-list').click(function(event){        
-    //     event.preventDefault()
-    //     viewTodoToday()
-    // })
-    // //all todo list
-    // $('#all-list').click(function(event){        
-    //     event.preventDefault()
-    //     viewAll()
-    // }) 
 }) // ini tutup bagian document
 
 
@@ -131,20 +114,13 @@ $.ajax({
 })    
 }
 
-function logout() {
-    localStorage.removeItem("token")
-    // var auth2 = gapi.auth2.getAuthInstance();
-    // auth2.signOut().then(function () {
-        ceckStatus()   
-    //     console.log('User signed out.');
-    // });
-}
+
 
 function fetchDataFilm (page) {
     console.log("fetch data masuk")
     Swal.fire({
         imageUrl:"https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-18.gif",
-        text:'Calculate your mood...',
+        text:'Calculate your feeling...',
         imageWidth: 200,
         imageHeight: 200,
         showConfirmButton: false
@@ -157,14 +133,7 @@ function fetchDataFilm (page) {
         }
     })
     .done(function({quotes, myEmotion}){
-        //console.log(data)
         displayQuotes(quotes, myEmotion)
-        
-        // $("#list-movie").empty()
-        // for(let i = 0; i < list.results.length; i++){
-        //     renderListMovie(list.results[i].id,list.results[i].title,list.results[i].backdrop_path)
-        // }
-        // renderListPage(emotion)
     })
     .fail(function(err){
         console.log(err)
@@ -196,23 +165,11 @@ function displayQuotes(quotes, myEmotion) {
             author = `Author: ${quote.quoteAuthor}`
         }
         $('#quotes-container').append(
-            
-    //     `<ul class="m-2 rounded" id="${quote._id}">
-    //         <li class="list-group-item py-4 d-flex justify-content-between"> 
-    //             <div>${quote.quoteText}</div>                 
-    //         </li>
-    //         <li class="list-group-item py-4 d-flex justify-content-between"> 
-    //             <div>Author : ${quote.quoteAuthor}</div>                
-    //         </li> 
-    //     </ul>    
-    //     <a class="twitter-share-button"
-    //     href="https://twitter.com/intent/tweet?text=${encodeURI(quote.quoteText)}">
-    //   Tweet</a>  
-    //     `
+          
     `<div class="card mt-5">
     <h5 class="card-header">${author}</h5>
     <div class="card-body">
-      <p class="card-text" style="font-family: 'Pacifico', cursive; size:20px">${quote.quoteText}</p>
+      <p class="card-text" style="font-family: 'Merienda One', cursive;">${quote.quoteText}</p>
       <a class="twitter-share-button"
          href="https://twitter.com/intent/tweet?text=${encodeURI(quote.quoteText)}">
        Tweet</a>  
@@ -220,24 +177,8 @@ function displayQuotes(quotes, myEmotion) {
   </div>`
     )
 
-        // <div class="d-flex flex-column">
-        //             <div class="ml-4">
-        //                 <button class='btn' id="${todo._id}" onclick="doneTodo('${todo._id}','${todo.status}', '${day}')"><i class="glyphicon glyphicon-ok id="${todo._id}"></i></button>                         
-        //                 <button class='btn' onclick="updateTodo('${todo._id}', '${day}')"><div class="glyphicon glyphicon-edit" id="${todo._id}"></div></button> 
-        //                 <button class='btn' onclick="deleteTodo('${todo._id}', '${day}')"><div class="glyphicon glyphicon-trash" id="${todo._id}" ></div></button> 
-        //             </div>
-        //         </div>
-        // if (todo.status == false) {
-        //     $(`#bg${todo._id}`).css('background-color', 'red').css('color', 'red')
-        // } else {
-        //     $(`#bg${todo._id}`).css('background-color', 'green').css('color', 'green')
-        // }
     });
     
-    // $('#click_advance').click(function() {
-    //     $('#display_advance').toggle('1000');
-    //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
-    // });
 }
 
 function onSignIn(googleUser) {
