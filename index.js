@@ -212,3 +212,4 @@ function displayQuotes(quotes, myEmotion) {
     //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
     // });
 }
+
