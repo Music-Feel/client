@@ -1,9 +1,9 @@
 $(document).ready(() => {
     ceckStatus()
     $('#toLoginPage').click(toLogin)
-    $('#login-button').click(toLogin)    
+    $('#login-button').click(toLogin)
     $('#register-button').click(toRegister)
-    
+
     $('#register').submit(registerMember)
     $('#login').submit(loginMember)
     $('#logout-button').click(logout)
@@ -39,17 +39,18 @@ function ceckStatus() {
         $('#mainPage').show()
         $('#loginForm').hide()
         $('#registerForm').show()
+        $('#contentDashboard').show()
         //$('#google').hide()
         //$('#todo_form').hide()
         //viewTodoToday() 
     } else {
         //bypass mainpage untuk sementara
-        $('#mainPage').show()
-        $('#registerForm').hide()
-        $('#loginForm').hide()
-
-        // $('#registerForm').show()
+        // $('#mainPage').show()
+        // $('#registerForm').hide()
         // $('#loginForm').hide()
+
+        $('#registerForm').show()
+        $('#loginForm').hide()
         //$('#google').show()
     }
 }
@@ -84,7 +85,7 @@ function registerMember(event) {
             'You have been registered in our web!',
             'success'
         )
-        toLogin()
+        toLogin(event)
     }).fail(err => {
         Swal.fire({
             title: 'error',
@@ -95,6 +96,7 @@ function registerMember(event) {
 }
 
 function loginMember(event) {
+    console.log('masuk');
     event.preventDefault()
     let email = $('#email_login').val()
     let password = $('#password_login').val()
@@ -123,53 +125,50 @@ function loginMember(event) {
             })
             //ceckStatus()
         })
-<<<<<<< HEAD
-=======
 
-})    
 }
 
 function logout() {
     localStorage.removeItem("token")
     // var auth2 = gapi.auth2.getAuthInstance();
     // auth2.signOut().then(function () {
-        ceckStatus()   
+    ceckStatus()
     //     console.log('User signed out.');
     // });
 }
 
-function fetchDataFilm (page) {
+function fetchDataFilm(page) {
     console.log("fetch data masuk")
     Swal.fire({
-        imageUrl:"https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-18.gif",
-        text:'Calculate your mood...',
+        imageUrl: "https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-18.gif",
+        text: 'Calculate your mood...',
         imageWidth: 200,
         imageHeight: 200,
         showConfirmButton: false
-    })    
+    })
     $.ajax({
         method: 'post',
         url: 'http://localhost:3000/quote',
-        data:{
+        data: {
             text: $("#sentence-emotion").val(),
         }
     })
-    .done(function({quotes, myEmotion}){
-        //console.log(data)
-        displayQuotes(quotes, myEmotion)
-        
-        // $("#list-movie").empty()
-        // for(let i = 0; i < list.results.length; i++){
-        //     renderListMovie(list.results[i].id,list.results[i].title,list.results[i].backdrop_path)
-        // }
-        // renderListPage(emotion)
-    })
-    .fail(function(err){
-        console.log(err)
-    })
-    .always(function(){
-        Swal.close()
-    })
+        .done(function ({ quotes, myEmotion }) {
+            //console.log(data)
+            displayQuotes(quotes, myEmotion)
+
+            // $("#list-movie").empty()
+            // for(let i = 0; i < list.results.length; i++){
+            //     renderListMovie(list.results[i].id,list.results[i].title,list.results[i].backdrop_path)
+            // }
+            // renderListPage(emotion)
+        })
+        .fail(function (err) {
+            console.log(err)
+        })
+        .always(function () {
+            Swal.close()
+        })
 }
 
 function displayQuotes(quotes, myEmotion) {
@@ -178,7 +177,7 @@ function displayQuotes(quotes, myEmotion) {
     `)
     quotes.forEach(quote => {
         $('#quotes-container').append(
-        `<ul class="m-2 rounded" id="${quote._id}">
+            `<ul class="m-2 rounded" id="${quote._id}">
             <li class="list-group-item py-4 d-flex justify-content-between"> 
                 <div>${quote.quoteText}</div>                 
             </li>
@@ -200,10 +199,9 @@ function displayQuotes(quotes, myEmotion) {
         //     $(`#bg${todo._id}`).css('background-color', 'green').css('color', 'green')
         // }
     });
-    
+
     // $('#click_advance').click(function() {
     //     $('#display_advance').toggle('1000');
     //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
     // });
->>>>>>> d5045fe49e69f70baf6b6467ee41a19f014565bf
 }

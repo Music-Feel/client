@@ -10,7 +10,7 @@
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: '/test.php',
+        url: 'http://localhost:3000/order/all',
         dataType: 'json',
     })
         .done(
@@ -45,4 +45,20 @@ $(document).ready(function () {
                 break;
         }
     });
+
+    $.ajax({
+        type: "GET",
+        url: 'http://localhost:3000/data-ongkir/kota',
+        dataType: 'json',
+    })
+        .done(function (data) {
+            $('select#kota, select#order').empty()
+            data.kota.forEach(kota => {
+                $('select#kota').append('<option value=' + kota.city_id + '>' + kota.city_name + '</option>');
+                $('select#order').append('<option value=' + kota.city_id + '>' + kota.city_name + '</option>')
+            });
+        })
+        .fail(function (err) {
+            console.log(err);
+        })
 })

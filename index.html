@@ -123,7 +123,7 @@
             </nav>
 
             <!-- ini main untuk dashboard -->
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="contentDashboard" style="display: none">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="contentDashboard">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
                     style="margin-top:-40px">
                     <h1 class="h2">Dashboard</h1>
@@ -151,8 +151,9 @@
                     <form>
                         <div class="form-group">
                             <label for="kota">Rencana Liburan Kemana</label>
-                            <input type="text" class="form-control" id="kota" aria-describedby="kota"
-                                placeholder="Liburan Ke Kota Mana" name="kota">
+                            <select name="kota" id="kota" class="form-control">
+                                <option value=""></option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="tanggalLiburan">Tanggal Liburan</label>
@@ -163,6 +164,12 @@
                             <label for="tanggalPengiriman">Tanggal Pengiriman Paket</label>
                             <input type="date" class="form-control" id="tanggalPengiriman" aria-describedby="tanggalPengiriman"
                                 placeholder="Tanggal Pengiriman">
+                        </div>
+                        <div class="form-group">
+                            <label for="order">Origin Pengiriman Paket</label>
+                            <select name="order" id="order" class="form-control">
+                                <option value=""></option>
+                            </select>
                         </div>
                         <button type="Check In" class="btn btn-primary">Check In</button>
                     </form>
