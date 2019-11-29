@@ -7,6 +7,11 @@ $(document).ready(() => {
     $('#register').submit(registerMember)
     $('#login').submit(loginMember)
     $('#logout-button').click(logout)
+
+    $('#form-fetch-data').submit(event => {
+        event.preventDefault()
+        fetchDataFilm()
+    })
     // $('#add-button').click(function(event){
     //     console.log('ini')
     //     $('#todo_form').show()
@@ -26,6 +31,7 @@ $(document).ready(() => {
     //     viewAll()
     // }) 
 }) // ini tutup bagian document
+
 
 
 function ceckStatus() {
