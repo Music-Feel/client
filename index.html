@@ -8,11 +8,32 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://kit.fontawesome.com/38239d1570.js" crossorigin="anonymous"></script>
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Acme|Poppins:800&display=swap" rel="stylesheet">
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <title>titip-takin</title>
   </head>
   <body>
 
-<div class="container">
+<!-- navbar start -->
+<nav class="navbar navbar-light p-0 text-light" style="background-color: rgb(37, 78, 211);">
+    <a class="navbar-brand ml-1" style=" font-weight: bold; font-size: 200%; font-family: 'Titillium Web', sans-serif;
+    ">Titip Takin</a>
+    <form class="form-inline" >
+        <div class="d-flex justify-content-between">
+            <!-- ini login google -->
+            <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn"></div>     
+            <button class="btn btn-info mr-1" >login</button> 
+            <button class="btn btn-info mr-1">Register</button>            
+        </div> 
+        <a id="logout" style="display: none;" class="btn btn-light my-2 my-sm-0" href="" onclick="signOut();"> Sign out </a>            
+    </form>
+</nav>
+<!-- navbar end -->
+
+<div class="container" id="loginForm" style="display: none">
  <div class="row justify-content-center mt-5">
   <div class="col-8">
     <form>
@@ -24,18 +45,14 @@
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
           <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
+        </div>        
         <button type="submit" class="btn btn-primary btn-block"> Submit</button>
     </form>
   </div>
  </div>
 </div>
 
-<div class="container">
+<div class="container" id="registerForm">
         <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title mt-3 text-center">Create Account</h4>
             <p class="text-center">Get started with your free account</p>
@@ -45,62 +62,55 @@
             <p class="divider-text text-center">
                 OR
             </p>
-            <form>
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-user"></i> </span>
-                 </div>
-                <input name="" class="form-control" placeholder="Full name" type="text">
-            </div> <!-- form-group// -->
+
+            <!-- form register -->
+            <form id="register">            
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
                  </div>
-                <input name="" class="form-control" placeholder="Email address" type="email">
-            </div> <!-- form-group// -->
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-phone"></i> </span>
-                </div>
-                <select class="custom-select" style="max-width: 120px;">
-                    <option selected="">+971</option>
-                    <option value="1">+972</option>
-                    <option value="2">+198</option>
-                    <option value="3">+701</option>
-                </select>
-                <input name="" class="form-control" placeholder="Phone number" type="text">
-            </div> <!-- form-group// -->
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-building"></i> </span>
-                </div>
-                <select class="form-control">
-                    <option selected=""> Select job type</option>
-                    <option>Designer</option>
-                    <option>Manager</option>
-                    <option>Accaunting</option>
-                </select>
-            </div> <!-- form-group end.// -->
+                <input name="" id="email" class="form-control" placeholder="Email address" type="email">
+            </div> <!-- form-group// -->          
+            
             <div class="form-group input-group">
                 <div class="input-group-prepend">
                     <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
                 </div>
-                <input class="form-control" placeholder="Create password" type="password">
-            </div> <!-- form-group// -->
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input class="form-control" placeholder="Repeat password" type="password">
-            </div> <!-- form-group// -->                                      
+                <input id="password" class="form-control" placeholder="Create password" type="password">
+            </div> <!-- form-group// -->                                                 
             <div class="form-group">
                 <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
             </div> <!-- form-group// -->      
-            <p class="text-center">Have an account? <a href="">Log In</a> </p>                                                                 
+            <p  class="text-center">Have an account? <a id="toLoginPage" href="">Log In</a> </p>                                                                 
         </form>
         </article>
         </div> <!-- card.// -->
         
-        </div> 
+        </div>
+        
+        <!-- div main page -->
+        <div class="container" id="mainPage" style="display: none">
+            <div class="row">
+                <div class="col-sm-4 border">
+                    <h1>side bar</h1>
+                </div>
+                <div class="col-sm-8 border">
+                    <h1>Main bar</h1>
+                </div>
+            </div>
+        </div>
 </body>
+<script
+    src="https://code.jquery.com/jquery-3.4.1.min.js"
+    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+    crossorigin="anonymous">
+</script>    
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<!-- ini untuk google -->
+<script src="https://apis.google.com/js/platform.js" async defer></script>    
+<!-- ini untuk sweetalert2 -->
+<script src="https://www.avatarapi.com/js.aspx?email=peter.smith@gmail.com&size=128">
+</script>
+<!-- main.js taruh paling bawah -->
+<script src="./index.js"></script>
 </html>
