@@ -1,22 +1,27 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
     <!-- google signIn -->
     <script src="https://apis.google.com/js/platform.js" async defer></script>
     <!-- <meta name="google-signin-client_id" content="691380957469-7ci7chojdrrm440n37o98opokfabmv29.apps.googleusercontent.com">
      -->
      <meta name="google-signin-client_id" content="628697528399-tm5hqkb025uttnahfoj889flu2jg3hvm.apps.googleusercontent.com">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/dashboard/">
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/4.4/examples/dashboard/dashboard.css">
     <script src="https://kit.fontawesome.com/38239d1570.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Bree+Serif&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Fjalla+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Poppins:800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Acme|Poppins:800&display=swap" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
 
     <!-- font family -->
     <link href="https://fonts.googleapis.com/css?family=Sulphur+Point&display=swap" rel="stylesheet">
@@ -24,9 +29,44 @@
     <link href="https://fonts.googleapis.com/css?family=Carter+One&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
     <title>titip-takin</title>
-  </head>
-  <body>
+</head>
 
+<body>
+    <!-- navbar start -->
+    <nav class="navbar navbar-light p-0 text-light" style="background-color: rgb(37, 78, 211);z-index:999;">
+        <a class="navbar-brand ml-1" style=" font-weight: bold; font-size: 200%; font-family: 'Titillium Web', sans-serif;
+    ">Titip Takin</a>
+        <form class="form-inline">
+            <div class="d-flex justify-content-between">
+                <!-- ini login google -->
+                <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn"></div>
+                <button class="btn btn-info mr-1">login</button>
+                <button class="btn btn-info mr-1">Register</button>
+            </div>
+            <a id="logout" style="display: none;" class="btn btn-light my-2 my-sm-0" href="" onclick="signOut();"> Sign
+                out </a>
+        </form>
+    </nav>
+    <!-- navbar end -->
+
+    <div class="container" id="loginForm" style="display: none">
+        <div class="row justify-content-center mt-5">
+            <div class="col-8">
+                <form id="login">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">Email address</label>
+                        <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="exampleInputPassword1">Password</label>
+                        <input type="password" class="form-control" id="password_login" placeholder="Password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block"> Submit</button>
+                </form>
+            </div>
 <!-- navbar start -->
 <nav class="navbar navbar-light p-0 text-light" style="background-color: rgb(37, 78, 211);">
     <a class="navbar-brand ml-1" style=" font-weight: bold; font-size: 200%; font-family: 'Titillium Web', sans-serif;
@@ -53,17 +93,9 @@
           <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
-        <div class="form-group">
-          <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="password_login" placeholder="Password">
-        </div>        
-        <button type="submit" class="btn btn-primary btn-block"> Submit</button>
-    </form>
-  </div>
- </div>
-</div>
+    </div>
 
-<div class="container" id="registerForm">
+    <div class="container" id="registerForm">
         <article class="card-body mx-auto" style="max-width: 400px;">
             <h4 class="card-title mt-3 text-center">Create Account</h4>
             <p class="text-center">Get started with your free account</p>
@@ -75,26 +107,90 @@
             </p>
 
             <!-- form register -->
-            <form id="register">            
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
-                 </div>
-                <input name="" id="email" class="form-control" placeholder="Email address" type="email">
-            </div> <!-- form-group// -->          
-            
-            <div class="form-group input-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
-                </div>
-                <input id="password" class="form-control" placeholder="Create password" type="password">
-            </div> <!-- form-group// -->                                                 
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary btn-block"> Create Account  </button>
-            </div> <!-- form-group// -->      
-            <p  class="text-center">Have an account? <a id="toLoginPage" href="">Log In</a> </p>                                                                 
-        </form>
+            <form id="register">
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-envelope"></i> </span>
+                    </div>
+                    <input name="" id="email" class="form-control" placeholder="Email address" type="email">
+                </div> <!-- form-group// -->
+
+                <div class="form-group input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"> <i class="fa fa-lock"></i> </span>
+                    </div>
+                    <input id="password" class="form-control" placeholder="Create password" type="password">
+                </div> <!-- form-group// -->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block"> Create Account </button>
+                </div> <!-- form-group// -->
+                <p class="text-center">Have an account? <a id="toLoginPage" href="">Log In</a> </p>
+            </form>
         </article>
+    </div> <!-- card.// -->
+
+    </div>
+
+    <!-- div main page -->
+    <div class="container-fluid" id="mainPage" style="display: none;">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar" style="padding-top:60px;">
+                <div class="sidebar-sticky">
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#">
+                                <span data-feather="home"></span>
+                                Dashboard
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="map-pin"></span>
+                                Check In
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                <span data-feather="shopping-bag"></span>
+                                Titip Barang
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+            <!-- ini main untuk dashboard -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="contentDashboard">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+                    style="margin-top:-40px">
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+
+                    </div>
+                </div>
+                <div class="container">
+                    Hai {NAMA} !
+                    Apa rencana kita? Mau liburan dan bantu belanja barang titipan teman, atau mau titip belanja ke
+                    teman yang lagi liburan ? :)
+                </div>
+            </main>
+
+            <!-- ini main untuk check in -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="contentCheckIn" style="display: none">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+                    style="margin-top:-40px">
+                    <h1 class="h2">Check In</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+
+                    </div>
+                </div>
+                <div class="container">
+                    <form id="formCheckIn">
+                        <div class="form-group">
+                            <label for="kota">Rencana Liburan Kemana</label>
+                            <select name="kota" id="kota" class="form-control">
+                                <option value=""></option>
+                            </select>
         </div> <!-- card.// -->
         
         </div>
@@ -130,25 +226,80 @@
                             </div>
                             </div>
                         </div>
-                    </section>
-
-                    <ul id="quotes-container" class="list-group list-group-flush">   
-                    </ul>                        
+                        <div class="form-group">
+                            <label for="tanggalLiburan">Tanggal Liburan</label>
+                            <input type="date" class="form-control" id="tanggalLiburan"
+                                aria-describedby="tanggalLiburan" placeholder="Tanggal Liburan">
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggalPengiriman">Tanggal Pengiriman Paket</label>
+                            <input type="date" class="form-control" id="tanggalPengiriman"
+                                aria-describedby="tanggalPengiriman" placeholder="Tanggal Pengiriman">
+                        </div>
+                        <div class="form-group">
+                            <label for="order">Origin Pengiriman Paket</label>
+                            <select name="order" id="order" class="form-control">
+                                <option value=""></option>
+                            </select>
+                        </div>
+                        <button type="Check In" class="btn btn-primary">Check In</button>
+                    </form>
                 </div>
-            </div>
+            </main>
+
+            <!-- ini main untuk list liburan -->
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4" id="contentTitip" style="display: none">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pb-2 mb-3 border-bottom"
+                    style="margin-top:-40px">
+                    <h1 class="h2">Titip Barang</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+
+                    </div>
+                </div>
+                <div class="container">
+                    <table id="example" class="display" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Lokasi</th>
+                                <th>Nama</th>
+                                <th>Tanggal Liburan</th>
+                                <th>Tanggal Pengiriman</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Tanggal Liburan</td>
+                                <td>Tanggal Liburan</td>
+                                <td>Tanggal Liburan</td>
+                                <td>Tanggal Liburan</td>
+                                <td>Tanggal Liburan</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
         </div>
+    </div>
 </body>
-<script
-    src="https://code.jquery.com/jquery-3.4.1.min.js"
-    integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
-    crossorigin="anonymous">
-</script>    
+<script src="https://code.jquery.com/jquery-3.4.1.min.js">
+</script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- ini untuk google -->
-<!-- <script src="https://apis.google.com/js/platform.js" async defer></script>     -->
+<!-- <script src="https://apis.google.com/js/platform.js" async defer></script> -->
 <!-- ini untuk sweetalert2 -->
 <script src="https://www.avatarapi.com/js.aspx?email=peter.smith@gmail.com&size=128">
 </script>
+
+<!-- ini untuk dashboard -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/feather-icons/4.9.0/feather.min.js"></script>
+<!-- <script src="https://getbootstrap.com/docs/4.4/examples/dashboard/dashboard.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+
 <!-- main.js taruh paling bawah -->
 <script src="./index.js"></script>
+<script src="./dashboard.js"></script>
+
 </html>
