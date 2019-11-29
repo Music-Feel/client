@@ -175,6 +175,7 @@ function fetchDataFilm (page) {
 }
 
 function displayQuotes(quotes, myEmotion) {
+    $('#quotes-container').empty()
     $('#quotes-container').append(`
         <h4>It seems that you are ${myEmotion} here are list of quote that might describe your feeling</h4>
     `)
@@ -187,7 +188,10 @@ function displayQuotes(quotes, myEmotion) {
             <li class="list-group-item py-4 d-flex justify-content-between"> 
                 <div>Author : ${quote.quoteAuthor}</div>                
             </li> 
-        </ul>        
+        </ul>    
+        <a class="twitter-share-button"
+        href="https://twitter.com/intent/tweet?text=${encodeURI(quote.quoteText)}">
+      Tweet</a>  
         `)
         // <div class="d-flex flex-column">
         //             <div class="ml-4">
