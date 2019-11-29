@@ -1,9 +1,12 @@
 $(document).ready(() => {
     ceckStatus()
     $('#toLoginPage').click(toLogin)
-    // $('#to_register').click(toRegister)
+    $('#login-button').click(toLogin)    
+    $('#register-button').click(toRegister)
+    
     $('#register').submit(registerMember)
-    // $('#login').submit(loginMember)
+    $('#login').submit(loginMember)
+    $('#logout-button').click(logout)
     // $('#add-button').click(function(event){
     //     console.log('ini')
     //     $('#todo_form').show()
@@ -38,7 +41,6 @@ function ceckStatus() {
         $('#mainPage').show()
         $('#registerForm').hide()
         $('#loginForm').hide()
-
 
         // $('#registerForm').show()
         // $('#loginForm').hide()
@@ -113,5 +115,6 @@ function loginMember(event) {
                 type: 'error',
                 text: err.responseJSON.message
             })
+            //ceckStatus()
         })
 }
