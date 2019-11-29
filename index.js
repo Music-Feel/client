@@ -38,7 +38,7 @@ function ceckStatus() {
     if (localStorage.getItem('token')) {
         $('#mainPage').show()
         $('#loginForm').hide()
-        $('#registerForm').show()
+        $('#registerForm').hide()
         $('#contentDashboard').show()
         //$('#google').hide()
         //$('#todo_form').hide()

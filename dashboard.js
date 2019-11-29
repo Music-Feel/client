@@ -11,14 +11,17 @@ $(document).ready(function () {
     $.ajax({
         type: "GET",
         url: 'http://localhost:3000/order/all',
-        dataType: 'json',
+        headers: {
+            token: localStorage.getItem('token')
+        },
     })
-        .done(
+        .done(function (data) {
+            
             $('#example').DataTable()
-        )
-        .fail(
-            $('#example').DataTable()
-        )
+        })
+        .fail(function (error) {
+            
+        })
 
     $('.sidebar li a').click(function () {
         $('.sidebar li a').removeClass('active')
@@ -54,11 +57,54 @@ $(document).ready(function () {
         .done(function (data) {
             $('select#kota, select#order').empty()
             data.kota.forEach(kota => {
-                $('select#kota').append('<option value=' + kota.city_id + '>' + kota.city_name + '</option>');
-                $('select#order').append('<option value=' + kota.city_id + '>' + kota.city_name + '</option>')
+                $('select#kota').append('<option value=' + kota.city_name + '>' + kota.city_name + '</option>');
+                $('select#order').append('<option value=' + kota.city_name + '>' + kota.city_name + '</option>')
             });
         })
         .fail(function (err) {
             console.log(err);
         })
+
+    $('#formCheckIn').submit(function (event) {
+        event.preventDefault()
+        let data = {
+            city: $('#kota').val(),
+            date: $('#tanggalLiburan').val(),
+            sentDate: $('#tanggalPengiriman').val(),
+            sentCity: $('#order').val()
+        }
+        // alert(JSON.stringify(data))
+
+        $.ajax({
+            type: "POST",
+            url: 'http://localhost:3000/order',
+            data: {
+                city: $('#kota').val(),
+                date: $('#tanggalLiburan').val(),
+                sentDate: $('#tanggalPengiriman').val(),
+                sentCity: $('#order').val()
+            },
+            headers: {
+                token: localStorage.getItem('token')
+            },
+            dataType: 'json',
+        })
+            .done(function (data) {
+                Swal.fire(
+                    'Check In Success!',
+                    'Share This Info!',
+                    'success'
+                )
+                checkLogin()
+            })
+            .fail(function (err) {
+                Swal.fire({
+                    title: 'error',
+                    type: 'error',
+                    text: err.responseJSON.message
+                })
+            })
+
+    })
 })
+
