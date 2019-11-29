@@ -5,6 +5,12 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- google signIn -->
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!-- <meta name="google-signin-client_id" content="691380957469-7ci7chojdrrm440n37o98opokfabmv29.apps.googleusercontent.com">
+     -->
+     <meta name="google-signin-client_id" content="628697528399-tm5hqkb025uttnahfoj889flu2jg3hvm.apps.googleusercontent.com">
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="canonical" href="https://getbootstrap.com/docs/4.4/examples/dashboard/">
@@ -16,6 +22,12 @@
     <link href="https://fonts.googleapis.com/css?family=Acme|Poppins:800&display=swap" rel="stylesheet">
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css">
+
+    <!-- font family -->
+    <link href="https://fonts.googleapis.com/css?family=Sulphur+Point&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Carter+One&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merienda+One&display=swap" rel="stylesheet">
     <title>titip-takin</title>
 </head>
 
@@ -55,6 +67,31 @@
                     <button type="submit" class="btn btn-primary btn-block"> Submit</button>
                 </form>
             </div>
+<!-- navbar start -->
+<nav class="navbar navbar-light p-0 text-light" style="background-color: rgb(37, 78, 211);">
+    <a class="navbar-brand ml-1" style=" font-weight: bold; font-size: 200%; font-family: 'Titillium Web', sans-serif;
+    "><img src="./asset/Titip Takin3.png" width="150"></a>
+    <form class="form-inline" >
+        <div class="d-flex justify-content-between">
+
+            <!-- <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn"></div>      -->
+            <button id="login-button" class="btn btn-warning pl-3 btn-lg" >login</button> 
+            <button id="register-button"  class="btn btn-warning ml-3 mr-5 btn-lg">Register</button>      
+            <button id="logout-button" style="display: none;"  class="btn btn-warning ml-3 mr-5 btn-lg">Logout</button>      
+        </div> 
+        <!-- <a id="logout-button" style="display: none;" class="btn btn-light my-2 my-sm-0" href="" onclick="signOut();"> Sign out </a>             -->
+    </form>
+</nav>
+<!-- navbar end -->
+
+<div class="container" id="loginForm" style="display: none">
+ <div class="row justify-content-center mt-5">
+  <div class="col-8">
+    <form id="login">
+        <div class="form-group">
+          <label for="exampleInputEmail1">Email address</label>
+          <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" placeholder="Enter email">
+          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
     </div>
 
@@ -63,7 +100,7 @@
             <h4 class="card-title mt-3 text-center">Create Account</h4>
             <p class="text-center">Get started with your free account</p>
             <p>
-                <a href="" class="btn btn-primary btn-block"> <i class="fab fa-twitter"></i>   Login via Twitter</a>
+                    <div class="g-signin2" data-onsuccess="onSignIn" style="margin-left: 120px;"></div>
             </p>
             <p class="divider-text text-center">
                 OR
@@ -154,6 +191,40 @@
                             <select name="kota" id="kota" class="form-control">
                                 <option value=""></option>
                             </select>
+        </div> <!-- card.// -->
+        
+        </div>
+        
+        <!-- div main page -->
+        <div class="container" id="mainPage" style="display: none">
+            <div class="row mt-5">
+                <div class="col-sm-8 border" style="margin-left: auto;margin-right: auto;">
+                    <section id="home-page">
+                        <div class="fdb-block container-fluid" style="background-color:transparent;">
+                            <div class="row justify-content-center mt-2 mb-2" style="background-image: url('./asset/626427.jpg'); background-repeat: no-repeat; background-position-x: center; background-size: cover;">
+                            <div class="text-center">
+                                <div class="fdb-box box-margin-top-sentence">
+                                <div class="row">
+                                    <div class="col" >
+                                    <h2 style="font-family: 'Sulphur Point', sans-serif;">Please tell me your story</h2>
+                                    <p>We will get you the appropriate quote to fit your feeling</p>
+                                    </div>
+                                </div>
+                                <form id="form-fetch-data">
+                                <div class="row mt-4">
+                                    <div class="col">
+                                    <input required type="text" id="sentence-emotion" class="form-control" placeholder="your story here">
+                                    </div>
+                                </div>                                
+                                <div class="row mt-4">
+                                    <div class="col">
+                                    <button class="btn btn-outline-secondary" type="submit">Search Quote</button>
+                                    </div>
+                                </div>
+                                </form>
+                                </div>
+                            </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="tanggalLiburan">Tanggal Liburan</label>
