@@ -175,24 +175,51 @@ function fetchDataFilm (page) {
 }
 
 function displayQuotes(quotes, myEmotion) {
+    let emotions = {
+        happy: 'yellow',
+        sad: 'grey',
+        angry: 'red',
+        fear: 'black',
+        excited: 'blue',
+        indifferent: 'purple'
+    }
     $('#quotes-container').empty()
     $('#quotes-container').append(`
-        <h4>It seems that you are ${myEmotion} here are list of quote that might describe your feeling</h4>
+        <h4>It seems that you are <strong style="color:${emotions[myEmotion]}; font-family: 'Carter One', cursive;">${myEmotion}</strong> here are list of quote that might describe your feeling</h4>
     `)
     quotes.forEach(quote => {
+        console.log(quote)
+        let author = ''
+        if(quote.quoteAuthor === ''){
+            author = 'Author: Pemuja Rahasia'
+        }else{
+            author = `Author: ${quote.quoteAuthor}`
+        }
         $('#quotes-container').append(
-        `<ul class="m-2 rounded" id="${quote._id}">
-            <li class="list-group-item py-4 d-flex justify-content-between"> 
-                <div>${quote.quoteText}</div>                 
-            </li>
-            <li class="list-group-item py-4 d-flex justify-content-between"> 
-                <div>Author : ${quote.quoteAuthor}</div>                
-            </li> 
-        </ul>    
-        <a class="twitter-share-button"
-        href="https://twitter.com/intent/tweet?text=${encodeURI(quote.quoteText)}">
-      Tweet</a>  
-        `)
+            
+    //     `<ul class="m-2 rounded" id="${quote._id}">
+    //         <li class="list-group-item py-4 d-flex justify-content-between"> 
+    //             <div>${quote.quoteText}</div>                 
+    //         </li>
+    //         <li class="list-group-item py-4 d-flex justify-content-between"> 
+    //             <div>Author : ${quote.quoteAuthor}</div>                
+    //         </li> 
+    //     </ul>    
+    //     <a class="twitter-share-button"
+    //     href="https://twitter.com/intent/tweet?text=${encodeURI(quote.quoteText)}">
+    //   Tweet</a>  
+    //     `
+    `<div class="card mt-5">
+    <h5 class="card-header">${author}</h5>
+    <div class="card-body">
+      <p class="card-text" style="font-family: 'Pacifico', cursive; size:20px">${quote.quoteText}</p>
+      <a class="twitter-share-button"
+         href="https://twitter.com/intent/tweet?text=${encodeURI(quote.quoteText)}">
+       Tweet</a>  
+    </div>
+  </div>`
+    )
+
         // <div class="d-flex flex-column">
         //             <div class="ml-4">
         //                 <button class='btn' id="${todo._id}" onclick="doneTodo('${todo._id}','${todo.status}', '${day}')"><i class="glyphicon glyphicon-ok id="${todo._id}"></i></button>                         
@@ -211,4 +238,38 @@ function displayQuotes(quotes, myEmotion) {
     //     $('#display_advance').toggle('1000');
     //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
     // });
+}
+
+function onSignIn(googleUser) {
+    var profile = googleUser.getBasicProfile();
+    var id_token = googleUser.getAuthResponse().id_token;
+    console.log(profile)
+    $('#user-image').attr("src", profile.Paa);
+    $('#user-title').empty()
+    $('#user-title').append(`<li class="list-group-item pl-1" id="user-title">${profile.ig}</li>`)
+    $('#user-email').empty()
+    $('#user-email').append(`<li class="list-group-item pl-1" id="user-title">${profile.U3}</li>`)
+    $.ajax({
+        url : `http://localhost:3000/login-google`,
+        method : "POST",
+        data : {
+            google_token : id_token
+        }
+    })
+    .done( data => {
+        localStorage.setItem("token", data.token)
+        ceckStatus()
+    })
+    .fail(err=> {
+        console.log(err)
+    })
+}
+
+function signOut() {
+    localStorage.removeItem("token")
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+        ceckStatus()
+        console.log('User signed out.');
+    });
 }
