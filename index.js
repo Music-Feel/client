@@ -1,9 +1,12 @@
 $(document).ready( () => {
     ceckStatus()         
     $('#toLoginPage').click(toLogin)
-    // $('#to_register').click(toRegister)
+    $('#login-button').click(toLogin)    
+    $('#register-button').click(toRegister)
+    
     $('#register').submit(registerMember)
-    // $('#login').submit(loginMember)
+    $('#login').submit(loginMember)
+    $('#logout-button').click(logout)
     // $('#add-button').click(function(event){
     //     console.log('ini')
     //     $('#todo_form').show()
@@ -29,14 +32,22 @@ function ceckStatus() {
     if(localStorage.getItem('token')){
         $('#mainPage').show()
         $('#loginForm').hide()
-        $('#registerForm').show() 
+        $('#registerForm').hide() 
+        $('#login-button').hide()  
+        $('#register-button').hide()
+        $('#logout-button').show()
+
         //$('#google').hide()
         //$('#todo_form').hide()
         //viewTodoToday() 
     } else {
         $('#registerForm').show()
+        $('#mainPage').hide()
         $('#loginForm').hide()
         //$('#google').show()
+        $('#login-button').show()  
+        $('#register-button').show()
+        $('#logout-button').hide()        
     } 
 }
 
@@ -45,12 +56,16 @@ function toLogin(event) {
     event.preventDefault()
     $('#loginForm').show() 
     $('#registerForm').hide() 
+    $('#mainPage').hide()
+
 }
 
 function toRegister(event) {
     event.preventDefault()
     $('#loginForm').hide() 
-    $('#registerForm').show() 
+    $('#registerForm').show()
+    $('#mainPage').hide()
+
 }
 
 function registerMember(event) {
@@ -70,7 +85,7 @@ function registerMember(event) {
             'You have been registered in our web!',
             'success'
           )
-          toLogin()
+          toLogin(event)
     }).fail( err => {
         Swal.fire({
             title: 'error',
@@ -108,4 +123,13 @@ $.ajax({
         text: err.responseJSON.message
     })
 })    
+}
+
+function logout() {
+    localStorage.removeItem("token")
+    // var auth2 = gapi.auth2.getAuthInstance();
+    // auth2.signOut().then(function () {
+        ceckStatus()   
+    //     console.log('User signed out.');
+    // });
 }

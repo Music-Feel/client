@@ -24,11 +24,12 @@
     <form class="form-inline" >
         <div class="d-flex justify-content-between">
             <!-- ini login google -->
-            <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn"></div>     
-            <button class="btn btn-info mr-1" >login</button> 
-            <button class="btn btn-info mr-1">Register</button>            
+            <!-- <div id="google" class="g-signin2 pl-3 mr-3" data-onsuccess="onSignIn"></div>      -->
+            <button id="login-button" class="btn btn-info mr-1" >login</button> 
+            <button id="register-button"  class="btn btn-info mr-1">Register</button>      
+            <button id="logout-button" style="display: none;"  class="btn btn-info mr-2">Logout</button>      
         </div> 
-        <a id="logout" style="display: none;" class="btn btn-light my-2 my-sm-0" href="" onclick="signOut();"> Sign out </a>            
+        <!-- <a id="logout-button" style="display: none;" class="btn btn-light my-2 my-sm-0" href="" onclick="signOut();"> Sign out </a>             -->
     </form>
 </nav>
 <!-- navbar end -->
@@ -36,15 +37,15 @@
 <div class="container" id="loginForm" style="display: none">
  <div class="row justify-content-center mt-5">
   <div class="col-8">
-    <form>
+    <form id="login">
         <div class="form-group">
           <label for="exampleInputEmail1">Email address</label>
-          <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+          <input type="email" class="form-control" id="email_login" aria-describedby="emailHelp" placeholder="Enter email">
           <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+          <input type="password" class="form-control" id="password_login" placeholder="Password">
         </div>        
         <button type="submit" class="btn btn-primary btn-block"> Submit</button>
     </form>
@@ -107,7 +108,7 @@
 </script>    
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <!-- ini untuk google -->
-<script src="https://apis.google.com/js/platform.js" async defer></script>    
+<!-- <script src="https://apis.google.com/js/platform.js" async defer></script>     -->
 <!-- ini untuk sweetalert2 -->
 <script src="https://www.avatarapi.com/js.aspx?email=peter.smith@gmail.com&size=128">
 </script>
