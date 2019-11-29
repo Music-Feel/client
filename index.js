@@ -1,5 +1,5 @@
-$(document).ready( () => {
-    ceckStatus()         
+$(document).ready(() => {
+    ceckStatus()
     $('#toLoginPage').click(toLogin)
     // $('#to_register').click(toRegister)
     $('#register').submit(registerMember)
@@ -26,31 +26,37 @@ $(document).ready( () => {
 
 
 function ceckStatus() {
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         $('#mainPage').show()
         $('#loginForm').hide()
-        $('#registerForm').show() 
+        $('#registerForm').show()
         //$('#google').hide()
         //$('#todo_form').hide()
         //viewTodoToday() 
     } else {
-        $('#registerForm').show()
+        //bypass mainpage untuk sementara
+        $('#mainPage').show()
+        $('#registerForm').hide()
         $('#loginForm').hide()
+
+
+        // $('#registerForm').show()
+        // $('#loginForm').hide()
         //$('#google').show()
-    } 
+    }
 }
 
 function toLogin(event) {
     console.log('ketrigger')
     event.preventDefault()
-    $('#loginForm').show() 
-    $('#registerForm').hide() 
+    $('#loginForm').show()
+    $('#registerForm').hide()
 }
 
 function toRegister(event) {
     event.preventDefault()
-    $('#loginForm').hide() 
-    $('#registerForm').show() 
+    $('#loginForm').hide()
+    $('#registerForm').show()
 }
 
 function registerMember(event) {
@@ -58,54 +64,54 @@ function registerMember(event) {
     let email = $('#email').val()
     let password = $('#password').val()
     $.ajax({
-        url : `http://localhost:3000/register`,
-        method : 'POST',
-        data : {
-            email : email,
-            password : password,
+        url: `http://localhost:3000/register`,
+        method: 'POST',
+        data: {
+            email: email,
+            password: password,
         }
-    }).done( result => {
+    }).done(result => {
         Swal.fire(
             'Register Success!',
             'You have been registered in our web!',
             'success'
-          )
-          toLogin()
-    }).fail( err => {
+        )
+        toLogin()
+    }).fail(err => {
         Swal.fire({
             title: 'error',
             type: 'error',
             text: err.responseJSON.message.join(', ')
         })
-    })    
+    })
 }
 
 function loginMember(event) {
-event.preventDefault()        
-let email = $('#email_login').val()
-let password = $('#password_login').val()
-$.ajax({
-    url : `http://localhost:3000/login`,
-    method : 'POST',
-    data : {
-        email : email,
-        password : password
-    }
-})
-.done( data => {
-    Swal.fire(
-        'Loggin Success!',
-        'You are now loggin in our web!',
-        'success'
-        )
-    localStorage.setItem("token", data.token)
-    ceckStatus()   
-})
-.fail( err => {
-    Swal.fire({
-        title: 'Ops...',
-        type: 'error',
-        text: err.responseJSON.message
+    event.preventDefault()
+    let email = $('#email_login').val()
+    let password = $('#password_login').val()
+    $.ajax({
+        url: `http://localhost:3000/login`,
+        method: 'POST',
+        data: {
+            email: email,
+            password: password
+        }
     })
-})    
+        .done(data => {
+            Swal.fire(
+                'Loggin Success!',
+                'You are now loggin in our web!',
+                'success'
+            )
+            localStorage.setItem("token", data.token)
+            ceckStatus()
+        })
+        .fail(err => {
+            Swal.fire({
+                title: 'Ops...',
+                type: 'error',
+                text: err.responseJSON.message
+            })
+        })
 }
