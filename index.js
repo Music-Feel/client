@@ -7,6 +7,11 @@ $(document).ready( () => {
     $('#register').submit(registerMember)
     $('#login').submit(loginMember)
     $('#logout-button').click(logout)
+
+    $('#form-fetch-data').submit(event => {
+        event.preventDefault()
+        fetchDataFilm()
+    })
     // $('#add-button').click(function(event){
     //     console.log('ini')
     //     $('#todo_form').show()
@@ -26,6 +31,7 @@ $(document).ready( () => {
     //     viewAll()
     // }) 
 }) // ini tutup bagian document
+
 
 
 function ceckStatus() {
@@ -131,5 +137,74 @@ function logout() {
     // auth2.signOut().then(function () {
         ceckStatus()   
     //     console.log('User signed out.');
+    // });
+}
+
+function fetchDataFilm (page) {
+    console.log("fetch data masuk")
+    Swal.fire({
+        imageUrl:"https://digitalsynopsis.com/wp-content/uploads/2016/06/loading-animations-preloader-gifs-ui-ux-effects-18.gif",
+        text:'Calculate your mood...',
+        imageWidth: 200,
+        imageHeight: 200,
+        showConfirmButton: false
+    })    
+    $.ajax({
+        method: 'post',
+        url: 'http://localhost:3000/quote',
+        data:{
+            text: $("#sentence-emotion").val(),
+        }
+    })
+    .done(function({quotes, myEmotion}){
+        //console.log(data)
+        displayQuotes(quotes, myEmotion)
+        
+        // $("#list-movie").empty()
+        // for(let i = 0; i < list.results.length; i++){
+        //     renderListMovie(list.results[i].id,list.results[i].title,list.results[i].backdrop_path)
+        // }
+        // renderListPage(emotion)
+    })
+    .fail(function(err){
+        console.log(err)
+    })
+    .always(function(){
+        Swal.close()
+    })
+}
+
+function displayQuotes(quotes, myEmotion) {
+    $('#quotes-container').append(`
+        <h4>It seems that you are ${myEmotion} here are list of quote that might describe your feeling</h4>
+    `)
+    quotes.forEach(quote => {
+        $('#quotes-container').append(
+        `<ul class="m-2 rounded" id="${quote._id}">
+            <li class="list-group-item py-4 d-flex justify-content-between"> 
+                <div>${quote.quoteText}</div>                 
+            </li>
+            <li class="list-group-item py-4 d-flex justify-content-between"> 
+                <div>Author : ${quote.quoteAuthor}</div>                
+            </li> 
+        </ul>        
+        `)
+        // <div class="d-flex flex-column">
+        //             <div class="ml-4">
+        //                 <button class='btn' id="${todo._id}" onclick="doneTodo('${todo._id}','${todo.status}', '${day}')"><i class="glyphicon glyphicon-ok id="${todo._id}"></i></button>                         
+        //                 <button class='btn' onclick="updateTodo('${todo._id}', '${day}')"><div class="glyphicon glyphicon-edit" id="${todo._id}"></div></button> 
+        //                 <button class='btn' onclick="deleteTodo('${todo._id}', '${day}')"><div class="glyphicon glyphicon-trash" id="${todo._id}" ></div></button> 
+        //             </div>
+        //         </div>
+        // if (todo.status == false) {
+        //     $(`#bg${todo._id}`).css('background-color', 'red').css('color', 'red')
+        // } else {
+        //     $(`#bg${todo._id}`).css('background-color', 'green').css('color', 'green')
+        // }
+    });
+    
+    // $('#click_advance').click(function() {
+    //     $('#display_advance').toggle('1000');
+    //     $("i", this).toggleClass("icon-circle-arrow-up icon-circle-arrow-down");
     // });
 }
